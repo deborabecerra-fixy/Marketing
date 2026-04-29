@@ -24,8 +24,6 @@
     --red-light: #fef2f2;
     --green: #16a34a;
     --green-light: #f0fdf4;
-    --orange: #ea580c;
-    --orange-light: #fff7ed;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
@@ -34,379 +32,619 @@
     background: var(--grey-light);
     color: var(--text);
     line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* ── PROGRESS BAR ── */
+  #progress-bar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    width: 0%;
+    background: linear-gradient(90deg, var(--blue), var(--yellow));
+    z-index: 9999;
+    transition: width 0.1s linear;
+    box-shadow: 0 0 8px rgba(251,190,55,0.6);
+  }
+
+  /* ── FLOATING NAV ── */
+  .topnav {
+    position: fixed;
+    top: 12px; left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.6);
+    border-radius: 99px;
+    padding: 10px 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    opacity: 0;
+    animation: navSlideIn 0.6s 0.5s ease forwards;
+  }
+  @keyframes navSlideIn {
+    from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+    to   { opacity: 1; transform: translateX(-50%) translateY(0); }
+  }
+  .topnav-logo {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; font-weight: 800; color: var(--blue-deeper);
+    text-decoration: none;
+  }
+  .topnav-logo .box {
+    width: 26px; height: 26px;
+    background: var(--blue);
+    border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 900; color: white;
+  }
+  .topnav-links {
+    display: flex; gap: 4px;
+  }
+  .topnav-links a {
+    font-size: 12px; font-weight: 600; color: var(--text-muted);
+    text-decoration: none;
+    padding: 4px 10px;
+    border-radius: 99px;
+    transition: all 0.2s;
+  }
+  .topnav-links a:hover {
+    color: var(--blue);
+    background: var(--blue-light);
+  }
+  .topnav-badge {
+    background: var(--red);
+    color: white;
+    font-size: 10px; font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 99px;
+    animation: pulse-red 2s infinite;
+    white-space: nowrap;
+  }
+  @keyframes pulse-red {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(220,38,38,0.4); }
+    50% { box-shadow: 0 0 0 6px rgba(220,38,38,0); }
   }
 
   /* ── HERO ── */
   .hero {
     background: linear-gradient(135deg, var(--blue-deeper) 0%, var(--blue) 60%, #00aee8 100%);
-    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
     position: relative;
     overflow: hidden;
   }
+  /* Animated orbs */
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    animation: float 8s ease-in-out infinite;
+  }
+  .orb-1 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(251,190,55,0.2), transparent 70%);
+    top: -150px; right: -100px;
+    animation-delay: 0s;
+  }
+  .orb-2 {
+    width: 350px; height: 350px;
+    background: radial-gradient(circle, rgba(255,255,255,0.08), transparent 70%);
+    bottom: -100px; left: -80px;
+    animation-delay: -3s;
+  }
+  .orb-3 {
+    width: 200px; height: 200px;
+    background: radial-gradient(circle, rgba(251,190,55,0.12), transparent 70%);
+    top: 40%; left: 30%;
+    animation-delay: -5s;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50% { transform: translateY(-30px) scale(1.05); }
+  }
+  /* Grid pattern overlay */
   .hero::before {
     content: '';
     position: absolute;
-    top: -80px; right: -80px;
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, rgba(251,190,55,0.18) 0%, transparent 70%);
-    border-radius: 50%;
-  }
-  .hero::after {
-    content: '';
-    position: absolute;
-    bottom: -60px; left: -60px;
-    width: 300px; height: 300px;
-    background: radial-gradient(circle, rgba(255,255,255,0.07) 0%, transparent 70%);
-    border-radius: 50%;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 50px 50px;
   }
   .hero-inner {
     max-width: 960px;
     margin: 0 auto;
-    padding: 56px 24px 48px;
+    padding: 120px 24px 80px;
     position: relative;
     z-index: 1;
+    width: 100%;
   }
   .hero-tag {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    background: rgba(255,255,255,0.15);
-    border: 1px solid rgba(255,255,255,0.25);
-    color: white;
-    font-size: 12px;
-    font-weight: 600;
-    padding: 5px 14px;
-    border-radius: 99px;
-    letter-spacing: 0.5px;
-    margin-bottom: 20px;
-    backdrop-filter: blur(4px);
-  }
-  .hero-tag .dot {
-    width: 7px; height: 7px;
-    background: var(--yellow);
-    border-radius: 50%;
-    animation: blink 1.5s infinite;
-  }
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-  }
-  .hero h1 {
-    font-size: clamp(28px, 5vw, 46px);
-    font-weight: 900;
-    color: white;
-    letter-spacing: -1.5px;
-    line-height: 1.1;
-    margin-bottom: 14px;
-  }
-  .hero h1 span { color: var(--yellow); }
-  .hero-sub {
-    font-size: 15px;
-    color: rgba(255,255,255,0.75);
-    margin-bottom: 32px;
-  }
-  .hero-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    align-items: center;
-  }
-  .pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
     background: rgba(255,255,255,0.12);
     border: 1px solid rgba(255,255,255,0.2);
     color: white;
-    font-size: 12px;
-    font-weight: 500;
-    padding: 5px 12px;
+    font-size: 12px; font-weight: 600;
+    padding: 6px 16px;
     border-radius: 99px;
-    backdrop-filter: blur(4px);
+    margin-bottom: 24px;
+    backdrop-filter: blur(8px);
+    opacity: 0;
+    animation: fadeUp 0.7s 0.2s ease forwards;
   }
+  .hero-tag .live-dot {
+    width: 7px; height: 7px;
+    background: #4ade80;
+    border-radius: 50%;
+    animation: blink 1.5s infinite;
+    box-shadow: 0 0 6px #4ade80;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+  }
+  .hero h1 {
+    font-size: clamp(32px, 6vw, 58px);
+    font-weight: 900;
+    color: white;
+    letter-spacing: -2px;
+    line-height: 1.05;
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.4s ease forwards;
+  }
+  .hero h1 .yellow { color: var(--yellow); }
+  .hero h1 .outline {
+    -webkit-text-stroke: 2px rgba(255,255,255,0.5);
+    color: transparent;
+  }
+  .hero-sub {
+    font-size: 16px;
+    color: rgba(255,255,255,0.65);
+    margin-bottom: 36px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.55s ease forwards;
+  }
+  .hero-pills {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    opacity: 0;
+    animation: fadeUp 0.7s 0.7s ease forwards;
+  }
+  .pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.18);
+    color: white;
+    font-size: 12px; font-weight: 500;
+    padding: 6px 14px;
+    border-radius: 99px;
+    backdrop-filter: blur(8px);
+    transition: all 0.3s;
+  }
+  .pill:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
   .pill.yellow {
     background: var(--yellow);
     border-color: var(--yellow);
     color: var(--blue-deeper);
     font-weight: 700;
   }
+  /* Scroll indicator */
+  .scroll-hint {
+    position: absolute;
+    bottom: 32px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    color: rgba(255,255,255,0.4);
+    font-size: 11px; font-weight: 500;
+    animation: bounce 2s 1.5s infinite;
+    z-index: 1;
+  }
+  .scroll-hint svg { opacity: 0.4; }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
 
   /* ── STATS BAR ── */
   .stats-bar {
     background: white;
     border-bottom: 1px solid var(--border);
-    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    position: relative;
+    z-index: 10;
   }
   .stats-bar-inner {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 0 24px;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
+    max-width: 960px; margin: 0 auto; padding: 0 24px;
+    display: grid; grid-template-columns: repeat(4, 1fr);
   }
   .stat {
-    padding: 20px 20px;
+    padding: 24px 20px;
     border-right: 1px solid var(--border);
     text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+    cursor: default;
   }
+  .stat::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 40px; height: 3px;
+    background: var(--blue);
+    border-radius: 99px;
+    transition: transform 0.3s ease;
+  }
+  .stat:hover::after { transform: translateX(-50%) scaleX(1); }
+  .stat:hover { background: #fafbff; }
   .stat:last-child { border-right: none; }
   .stat-val {
-    font-size: 28px;
-    font-weight: 900;
-    color: var(--blue);
-    letter-spacing: -1px;
-    line-height: 1;
+    font-size: 30px; font-weight: 900; color: var(--blue);
+    letter-spacing: -1.5px; line-height: 1;
+    transition: transform 0.3s;
   }
+  .stat:hover .stat-val { transform: scale(1.05); }
   .stat-val.red { color: var(--red); }
   .stat-val.yellow { color: var(--yellow-dark); }
-  .stat-label {
-    font-size: 11px;
-    color: var(--text-muted);
-    font-weight: 500;
-    margin-top: 4px;
-    line-height: 1.3;
-  }
+  .stat-label { font-size: 11px; color: var(--text-muted); font-weight: 500; margin-top: 5px; line-height: 1.3; }
 
   /* ── MAIN ── */
-  .main {
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 36px 24px 64px;
+  .main { max-width: 960px; margin: 0 auto; padding: 40px 24px 80px; }
+
+  /* ── FADE-UP ANIMATION ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
 
   /* ── ALERT ── */
   .alert {
-    background: linear-gradient(135deg, #fff7ed, #fffbeb);
+    background: linear-gradient(135deg, #fffbeb, #fff7ed);
     border: 1.5px solid var(--yellow);
     border-left: 5px solid var(--yellow);
-    border-radius: 14px;
-    padding: 18px 22px;
+    border-radius: 16px;
+    padding: 20px 24px;
     margin-bottom: 32px;
     display: flex;
     align-items: center;
     gap: 16px;
+    box-shadow: 0 4px 20px rgba(251,190,55,0.15);
+    transition: transform 0.3s, box-shadow 0.3s;
   }
-  .alert-icon { font-size: 30px; flex-shrink: 0; }
+  .alert:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(251,190,55,0.22);
+  }
+  .alert-icon { font-size: 32px; flex-shrink: 0; animation: shake 3s 2s infinite; }
+  @keyframes shake {
+    0%, 90%, 100% { transform: rotate(0); }
+    92% { transform: rotate(-8deg); }
+    96% { transform: rotate(8deg); }
+  }
   .alert-text p { font-size: 13.5px; color: #7c4a00; }
   .alert-text p strong { font-size: 15px; color: #5c3400; }
 
   /* ── SECTION ── */
   .section {
     background: white;
-    border-radius: 18px;
+    border-radius: 20px;
     border: 1px solid var(--border);
-    box-shadow: 0 2px 16px rgba(0,143,195,0.06);
     margin-bottom: 24px;
     overflow: hidden;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+  .section:hover {
+    box-shadow: 0 8px 40px rgba(0,143,195,0.1);
+    transform: translateY(-2px);
   }
   .section-head {
     padding: 18px 26px;
     border-bottom: 1px solid var(--border);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    background: #fafafa;
+    display: flex; align-items: center; gap: 12px;
+    background: linear-gradient(to right, #fafafa, white);
+    position: relative;
+    overflow: hidden;
+  }
+  .section-head::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--blue);
   }
   .section-num {
-    width: 32px; height: 32px;
-    border-radius: 9px;
-    background: var(--blue);
-    color: white;
+    width: 32px; height: 32px; border-radius: 9px;
+    background: var(--blue); color: white;
     font-size: 14px; font-weight: 800;
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
+    transition: transform 0.3s;
   }
+  .section:hover .section-num { transform: rotate(5deg) scale(1.1); }
   .section-num.y { background: var(--yellow); color: var(--blue-deeper); }
-  .section-num.g { background: var(--grey); color: white; }
-  .section-num.d { background: var(--blue-deeper); color: white; }
+  .section-num.g { background: var(--grey); }
+  .section-num.d { background: var(--blue-deeper); }
   .section-title { font-size: 14px; font-weight: 700; color: var(--text); text-transform: uppercase; letter-spacing: 0.5px; }
   .section-badge { margin-left: auto; font-size: 11px; color: var(--text-muted); font-weight: 500; }
   .section-body { padding: 22px 26px; }
 
-  /* ── EVENT CARDS ── */
-  .events { display: flex; flex-direction: column; gap: 0; }
+  /* ── EVENTS ── */
   .event {
-    display: flex;
-    gap: 18px;
+    display: flex; gap: 18px;
     padding: 16px 0;
     border-bottom: 1px solid var(--border);
     align-items: flex-start;
+    transition: all 0.3s;
+    border-radius: 0;
   }
   .event:last-child { border-bottom: none; padding-bottom: 0; }
+  .event:hover { transform: translateX(4px); }
   .event-cal {
-    min-width: 62px;
-    border-radius: 12px;
-    overflow: hidden;
-    border: 1.5px solid var(--blue);
-    flex-shrink: 0;
-    text-align: center;
+    min-width: 62px; border-radius: 12px; overflow: hidden;
+    border: 1.5px solid var(--blue); flex-shrink: 0; text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .event:hover .event-cal {
+    transform: scale(1.05);
+    box-shadow: 0 4px 16px rgba(0,143,195,0.2);
   }
   .event-cal.urgent { border-color: var(--red); }
-  .cal-top {
-    background: var(--blue);
-    color: white;
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    padding: 4px 0;
-    text-transform: uppercase;
-  }
+  .cal-top { background: var(--blue); color: white; font-size: 9px; font-weight: 700; letter-spacing: 1px; padding: 4px 0; text-transform: uppercase; }
   .event-cal.urgent .cal-top { background: var(--red); }
-  .cal-day {
-    background: white;
-    font-size: 24px;
-    font-weight: 900;
-    color: var(--text);
-    padding: 4px 0;
-    line-height: 1;
-  }
-  .cal-days-left {
-    background: var(--red-light);
-    color: var(--red);
-    font-size: 9px;
-    font-weight: 700;
-    padding: 3px 0;
-  }
+  .cal-day { background: white; font-size: 24px; font-weight: 900; color: var(--text); padding: 4px 0; line-height: 1; }
+  .cal-days-left { background: var(--red-light); color: var(--red); font-size: 9px; font-weight: 700; padding: 3px 0; }
   .event-body h3 { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
   .event-body p { font-size: 12.5px; color: var(--text-muted); margin-bottom: 6px; }
-  .event-body a { font-size: 12px; color: var(--blue); text-decoration: none; font-weight: 600; }
-  .event-body a:hover { text-decoration: underline; }
+  .event-body a { font-size: 12px; color: var(--blue); text-decoration: none; font-weight: 600; transition: color 0.2s; }
+  .event-body a:hover { color: var(--blue-deeper); text-decoration: underline; }
 
   /* ── TAGS ── */
   .tag {
     display: inline-flex; align-items: center; gap: 4px;
     font-size: 11px; font-weight: 600;
-    padding: 3px 10px; border-radius: 99px;
-    margin-bottom: 6px;
+    padding: 3px 10px; border-radius: 99px; margin-bottom: 6px;
+    transition: transform 0.2s;
   }
+  .tag:hover { transform: scale(1.05); }
   .tag-red { background: var(--red-light); color: var(--red); border: 1px solid #fecaca; }
   .tag-yellow { background: var(--yellow-light); color: #92400e; border: 1px solid #fcd34d; }
   .tag-green { background: var(--green-light); color: var(--green); border: 1px solid #bbf7d0; }
   .tag-blue { background: var(--blue-light); color: var(--blue-dark); border: 1px solid #bae6fd; }
 
   /* ── ACTIONS ── */
-  .actions { display: flex; flex-direction: column; }
   .action {
-    display: flex;
-    gap: 14px;
-    padding: 15px 0;
-    border-bottom: 1px solid var(--border);
+    display: flex; gap: 14px;
+    padding: 15px 14px; margin: 4px 0;
+    border-radius: 12px;
     align-items: flex-start;
+    transition: all 0.25s;
+    border: 1px solid transparent;
   }
-  .action:last-child { border-bottom: none; padding-bottom: 0; }
+  .action:hover {
+    background: #f8faff;
+    border-color: var(--blue-light);
+    transform: translateX(4px);
+    box-shadow: 0 2px 12px rgba(0,143,195,0.08);
+  }
   .action-emoji { font-size: 22px; flex-shrink: 0; line-height: 1.4; }
   .action h3 { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
   .action p { font-size: 12.5px; color: var(--text-muted); }
 
-  /* ── TREND CARDS ── */
+  /* ── TRENDS ── */
   .trend {
     background: var(--grey-light);
     border: 1px solid var(--border);
     border-left: 4px solid var(--blue);
-    border-radius: 10px;
-    padding: 15px 18px;
+    border-radius: 12px;
+    padding: 16px 18px;
     margin-bottom: 12px;
+    transition: all 0.3s;
+    cursor: default;
   }
   .trend:last-child { margin-bottom: 0; }
+  .trend:hover {
+    background: white;
+    border-left-color: var(--yellow-dark);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    transform: translateX(4px);
+  }
   .trend h3 { font-size: 13.5px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
   .trend p { font-size: 12.5px; color: var(--text-muted); margin-bottom: 8px; }
-  .trend a { font-size: 12px; color: var(--blue); text-decoration: none; font-weight: 600; }
+  .trend a { font-size: 12px; color: var(--blue); text-decoration: none; font-weight: 600; transition: color 0.2s; }
+  .trend a:hover { color: var(--blue-deeper); text-decoration: underline; }
 
   /* ── RADAR ── */
   .radar {
     background: var(--grey-light);
     border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 15px 18px;
+    border-radius: 12px;
+    padding: 16px 18px;
     margin-bottom: 12px;
+    transition: all 0.3s;
   }
   .radar:last-child { margin-bottom: 0; }
+  .radar:hover {
+    background: white;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.07);
+    transform: translateY(-2px);
+  }
   .radar-top { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
   .rdot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
-  .rdot-red { background: var(--red); }
+  .rdot-red { background: var(--red); box-shadow: 0 0 6px rgba(220,38,38,0.5); animation: pulse-dot 2s infinite; }
   .rdot-yellow { background: var(--yellow-dark); }
   .rdot-grey { background: var(--grey); }
+  @keyframes pulse-dot {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(220,38,38,0.4); }
+    50% { box-shadow: 0 0 0 5px rgba(220,38,38,0); }
+  }
   .co-name { font-size: 13px; font-weight: 800; color: var(--text); }
   .radar-action { font-size: 12.5px; color: var(--text-muted); margin-bottom: 6px; }
   .radar-impact {
     font-size: 12.5px; color: #78350f;
-    background: var(--yellow-light);
-    border-radius: 7px;
-    padding: 8px 12px;
-    margin-bottom: 6px;
-    font-style: italic;
+    background: var(--yellow-light); border-radius: 8px;
+    padding: 8px 12px; margin-bottom: 6px; font-style: italic;
+    border-left: 3px solid var(--yellow-dark);
   }
   .radar-source a { font-size: 12px; color: var(--blue); text-decoration: none; font-weight: 600; }
   .no-news { font-size: 12.5px; color: var(--grey); font-style: italic; }
 
   /* ── BONUS ── */
   .bonus {
-    background: linear-gradient(135deg, var(--blue-light), white);
+    background: linear-gradient(135deg, var(--blue-light), #f0f9ff, white);
     border: 1.5px solid var(--blue);
-    border-radius: 14px;
-    padding: 22px;
+    border-radius: 16px; padding: 24px;
+    position: relative; overflow: hidden;
+    transition: all 0.3s;
   }
+  .bonus::before {
+    content: '💡';
+    position: absolute;
+    right: 20px; top: 16px;
+    font-size: 60px; opacity: 0.06;
+    line-height: 1;
+  }
+  .bonus:hover { box-shadow: 0 8px 32px rgba(0,143,195,0.15); transform: translateY(-2px); }
   .bonus h3 { font-size: 15px; font-weight: 700; color: var(--blue-deeper); margin-bottom: 8px; }
   .bonus p { font-size: 12.5px; color: var(--text-muted); margin-bottom: 14px; }
   .bonus-tip {
-    background: white;
-    border: 1px solid #bae6fd;
-    border-radius: 9px;
-    padding: 14px;
-    font-size: 12.5px;
-    color: var(--text);
+    background: white; border: 1px solid #bae6fd;
+    border-radius: 10px; padding: 14px;
+    font-size: 12.5px; color: var(--text);
+    box-shadow: inset 0 1px 3px rgba(0,143,195,0.05);
   }
   .bonus-tip strong { color: var(--blue-deeper); }
-  .bonus a { display: inline-block; margin-top: 12px; font-size: 13px; color: var(--blue); text-decoration: none; font-weight: 700; }
+  .bonus a {
+    display: inline-flex; align-items: center; gap: 6px;
+    margin-top: 14px; font-size: 13px; color: var(--blue);
+    text-decoration: none; font-weight: 700;
+    transition: gap 0.2s;
+  }
+  .bonus a:hover { gap: 10px; }
 
   /* ── FOOTER ── */
   .footer {
-    background: var(--blue-deeper);
-    padding: 28px 24px;
+    background: linear-gradient(135deg, var(--blue-deeper), #003556);
+    padding: 40px 24px;
     text-align: center;
+    position: relative;
+    overflow: hidden;
   }
-  .footer-inner { max-width: 960px; margin: 0 auto; }
-  .footer p { font-size: 12px; color: rgba(255,255,255,0.55); }
-  .footer p span { color: var(--yellow); font-weight: 600; }
+  .footer::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .footer-inner { max-width: 960px; margin: 0 auto; position: relative; }
   .footer-logo {
-    display: inline-flex; align-items: center; gap: 8px;
-    margin-bottom: 10px;
+    display: inline-flex; align-items: center; gap: 10px;
+    margin-bottom: 12px;
   }
   .footer-logo .box {
-    width: 28px; height: 28px;
-    background: var(--yellow);
-    border-radius: 7px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 14px; font-weight: 900; color: var(--blue-deeper);
+    width: 32px; height: 32px; background: var(--yellow);
+    border-radius: 9px; display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 900; color: var(--blue-deeper);
   }
-  .footer-logo span { color: white; font-weight: 700; font-size: 15px; }
+  .footer-logo span { color: white; font-weight: 700; font-size: 16px; }
+  .footer p { font-size: 12px; color: rgba(255,255,255,0.45); }
+  .footer p span { color: var(--yellow); font-weight: 600; }
+
+  /* ── BACK TO TOP ── */
+  #back-top {
+    position: fixed; bottom: 28px; right: 28px;
+    width: 44px; height: 44px;
+    background: var(--blue);
+    color: white; border: none; cursor: pointer;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 4px 16px rgba(0,143,195,0.35);
+    opacity: 0; pointer-events: none;
+    transition: all 0.3s;
+    z-index: 500;
+    font-size: 18px;
+  }
+  #back-top.show { opacity: 1; pointer-events: auto; }
+  #back-top:hover { background: var(--blue-deeper); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,143,195,0.45); }
 
   /* ── RESPONSIVE ── */
   @media (max-width: 640px) {
+    .topnav-links { display: none; }
     .stats-bar-inner { grid-template-columns: repeat(2, 1fr); }
     .stat { border-bottom: 1px solid var(--border); }
     .stat:nth-child(2n) { border-right: none; }
     .stat:nth-child(3), .stat:nth-child(4) { border-bottom: none; }
-    .hero h1 { font-size: 28px; }
+    .hero h1 { font-size: 30px; letter-spacing: -1px; }
     .section-body { padding: 16px; }
     .section-head { padding: 14px 16px; }
+    .topnav { width: calc(100% - 32px); padding: 10px 16px; }
   }
 </style>
 </head>
 <body>
 
+<!-- PROGRESS BAR -->
+<div id="progress-bar"></div>
+
+<!-- FLOATING NAV -->
+<nav class="topnav">
+  <a href="#" class="topnav-logo">
+    <div class="box">F</div>
+    Fixy
+  </a>
+  <div class="topnav-links">
+    <a href="#eventos">Eventos</a>
+    <a href="#acciones">Acciones</a>
+    <a href="#tendencias">Tendencias</a>
+    <a href="#radar">Radar</a>
+  </div>
+  <span class="topnav-badge">🔥 Hot Sale en 12 días</span>
+</nav>
+
 <!-- HERO -->
 <section class="hero">
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
   <div class="hero-inner">
-    <div class="hero-tag"><div class="dot"></div> En vivo · 29 de abril 2026</div>
-    <h1>Briefing de <span>Inteligencia</span><br>de Mercado</h1>
+    <div class="hero-tag"><div class="live-dot"></div> En vivo · 29 de abril 2026</div>
+    <h1>Briefing de <span class="yellow">Inteligencia</span><br>de <span class="outline">Mercado</span></h1>
     <p class="hero-sub">Fixy Logística · Ecommerce Argentina & LATAM</p>
-    <div class="hero-meta">
+    <div class="hero-pills">
       <span class="pill yellow">🔥 Hot Sale en 12 días</span>
       <span class="pill">📅 Miércoles 29 abril 2026</span>
       <span class="pill">⏱ 8 min de lectura</span>
+      <span class="pill">📍 Argentina & LATAM</span>
     </div>
+  </div>
+  <div class="scroll-hint">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    scroll
   </div>
 </section>
 
@@ -414,19 +652,19 @@
 <div class="stats-bar">
   <div class="stats-bar-inner">
     <div class="stat">
-      <div class="stat-val red">12</div>
-      <div class="stat-label">días para<br>Hot Sale 2026</div>
+      <div class="stat-val red" data-target="12" data-suffix=" días">0</div>
+      <div class="stat-label">para el<br>Hot Sale 2026</div>
     </div>
     <div class="stat">
-      <div class="stat-val">+60%</div>
+      <div class="stat-val" data-target="60" data-prefix="+" data-suffix="%">0%</div>
       <div class="stat-label">crecimiento<br>ecommerce ARG 2025</div>
     </div>
     <div class="stat">
-      <div class="stat-val yellow">42%</div>
+      <div class="stat-val yellow" data-target="42" data-suffix="%">0%</div>
       <div class="stat-label">órdenes con<br>envío gratis</div>
     </div>
     <div class="stat">
-      <div class="stat-val">$7.891</div>
+      <div class="stat-val" data-prefix="$" data-target="7891" data-format="currency">$0</div>
       <div class="stat-label">costo prom.<br>envío 2025</div>
     </div>
   </div>
@@ -435,7 +673,7 @@
 <div class="main">
 
   <!-- ALERT -->
-  <div class="alert">
+  <div class="alert reveal">
     <div class="alert-icon">⚡</div>
     <div class="alert-text">
       <p><strong>ALERTA: Hot Sale arranca el 11 de mayo.</strong> Quedan 12 días. Si tus clientes ecommerce no tienen su logística lista, hoy es el momento de activar. Fixy debe estar en modo pico operativo ahora.</p>
@@ -443,133 +681,129 @@
   </div>
 
   <!-- SECCIÓN 1: EVENTOS -->
-  <div class="section">
+  <div class="section reveal" id="eventos">
     <div class="section-head">
       <div class="section-num">1</div>
       <div class="section-title">📅 Agenda de Eventos — Próximos 60 días</div>
       <div class="section-badge">Prioridad máxima</div>
     </div>
     <div class="section-body">
-      <div class="events">
 
-        <div class="event">
-          <div class="event-cal urgent">
-            <div class="cal-top">MAY</div>
-            <div class="cal-day">11</div>
-            <div class="cal-days-left">¡12 días!</div>
-          </div>
-          <div class="event-body">
-            <span class="tag tag-red">🔴 Crítico para Fixy</span>
-            <h3>🔥 Hot Sale Argentina 2026</h3>
-            <p><strong>11, 12 y 13 de mayo 2026</strong> · Hot Week extendida hasta el 17/5. Organizado por CACE. El evento de ecommerce más grande del año. Pico de envíos: esperar <strong>+40% a +80%</strong> vs. un lunes normal.</p>
-            <a href="https://www.hotsale.com.ar" target="_blank">🔗 hotsale.com.ar</a>
-          </div>
+      <div class="event">
+        <div class="event-cal urgent">
+          <div class="cal-top">MAY</div>
+          <div class="cal-day">11</div>
+          <div class="cal-days-left">¡12 días!</div>
         </div>
-
-        <div class="event">
-          <div class="event-cal">
-            <div class="cal-top">AGO</div>
-            <div class="cal-day">28</div>
-          </div>
-          <div class="event-body">
-            <span class="tag tag-red">🔴 Alta relevancia</span>
-            <h3>eCommerce Day Argentina 2026</h3>
-            <p><strong>27–29 de agosto 2026</strong> · Centro de Convenciones, Buenos Aires. Formato híbrido. El evento más importante de Digital Commerce de la región. Organizado por eCommerce Institute + CACE.</p>
-            <a href="https://ecommerceday.org.ar/2026/" target="_blank">🔗 ecommerceday.org.ar/2026</a>
-          </div>
+        <div class="event-body">
+          <span class="tag tag-red">🔴 Crítico para Fixy</span>
+          <h3>🔥 Hot Sale Argentina 2026</h3>
+          <p><strong>11, 12 y 13 de mayo 2026</strong> · Hot Week extendida hasta el 17/5. Organizado por CACE. Pico de envíos: esperar <strong>+40% a +80%</strong> vs. un lunes normal.</p>
+          <a href="https://www.hotsale.com.ar" target="_blank">🔗 hotsale.com.ar ↗</a>
         </div>
-
-        <div class="event">
-          <div class="event-cal">
-            <div class="cal-top">OCT</div>
-            <div class="cal-day">16</div>
-          </div>
-          <div class="event-body">
-            <span class="tag tag-green">🟢 LATAM Expansión</span>
-            <h3>Effix Colombia 2026</h3>
-            <p><strong>16–18 de octubre 2026</strong> · Plaza Mayor, Medellín. Feria de logística, fulfillment y ecommerce LATAM. Ideal para explorar expansión regional.</p>
-            <a href="https://effix.com.co" target="_blank">🔗 effix.com.co</a>
-          </div>
-        </div>
-
-        <div class="event">
-          <div class="event-cal">
-            <div class="cal-top">NOV</div>
-            <div class="cal-day">3</div>
-          </div>
-          <div class="event-body">
-            <span class="tag tag-yellow">🟡 Alta relevancia</span>
-            <h3>CyberMonday Argentina 2026</h3>
-            <p><strong>3, 4 y 5 de noviembre 2026</strong> · Segundo gran evento de ecommerce del año. Genera picos similares al Hot Sale. Tiempo suficiente para planificar capacidad.</p>
-            <a href="https://www.tiendanube.com/blog/cybermonday-argentina/" target="_blank">🔗 Tiendanube — CyberMonday 2026</a>
-          </div>
-        </div>
-
       </div>
+
+      <div class="event">
+        <div class="event-cal">
+          <div class="cal-top">AGO</div>
+          <div class="cal-day">28</div>
+        </div>
+        <div class="event-body">
+          <span class="tag tag-red">🔴 Alta relevancia</span>
+          <h3>eCommerce Day Argentina 2026</h3>
+          <p><strong>27–29 de agosto 2026</strong> · Centro de Convenciones, Buenos Aires. Formato híbrido. El evento más importante de Digital Commerce de la región.</p>
+          <a href="https://ecommerceday.org.ar/2026/" target="_blank">🔗 ecommerceday.org.ar ↗</a>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-cal">
+          <div class="cal-top">OCT</div>
+          <div class="cal-day">16</div>
+        </div>
+        <div class="event-body">
+          <span class="tag tag-green">🟢 LATAM Expansión</span>
+          <h3>Effix Colombia 2026</h3>
+          <p><strong>16–18 de octubre 2026</strong> · Plaza Mayor, Medellín. Feria de logística, fulfillment y ecommerce LATAM.</p>
+          <a href="https://effix.com.co" target="_blank">🔗 effix.com.co ↗</a>
+        </div>
+      </div>
+
+      <div class="event">
+        <div class="event-cal">
+          <div class="cal-top">NOV</div>
+          <div class="cal-day">3</div>
+        </div>
+        <div class="event-body">
+          <span class="tag tag-yellow">🟡 Alta relevancia</span>
+          <h3>CyberMonday Argentina 2026</h3>
+          <p><strong>3, 4 y 5 de noviembre 2026</strong> · Segundo gran evento de ecommerce del año. Genera picos similares al Hot Sale.</p>
+          <a href="https://www.tiendanube.com/blog/cybermonday-argentina/" target="_blank">🔗 Tiendanube — CyberMonday 2026 ↗</a>
+        </div>
+      </div>
+
     </div>
   </div>
 
   <!-- SECCIÓN 2: ACCIONES -->
-  <div class="section">
+  <div class="section reveal reveal-delay-1" id="acciones">
     <div class="section-head">
       <div class="section-num y">2</div>
       <div class="section-title">⚡ Acciones para Fixy — Esta Semana</div>
       <div class="section-badge">5 ítems accionables</div>
     </div>
     <div class="section-body">
-      <div class="actions">
 
-        <div class="action">
-          <div class="action-emoji">🔴</div>
-          <div>
-            <span class="tag tag-red">Urgente — hoy o mañana</span>
-            <h3>Activar protocolo de pico Hot Sale</h3>
-            <p>Confirmar capacidad operativa, rutas de contingencia y comunicar a clientes ecommerce sobre volúmenes esperados. Enviar checklist de preparación con Fixy como respaldo logístico.</p>
-          </div>
+      <div class="action">
+        <div class="action-emoji">🔴</div>
+        <div>
+          <span class="tag tag-red">Urgente — hoy o mañana</span>
+          <h3>Activar protocolo de pico Hot Sale</h3>
+          <p>Confirmar capacidad operativa, rutas de contingencia y comunicar a clientes ecommerce. Enviar checklist con Fixy como respaldo logístico.</p>
         </div>
-
-        <div class="action">
-          <div class="action-emoji">🔴</div>
-          <div>
-            <span class="tag tag-red">Urgente — esta semana</span>
-            <h3>Diferenciarse de Andreani para pymes</h3>
-            <p>Andreani apuesta a same-day para grandes marcas (26.000 paquetes/hora). El gap de Fixy: más flexible, personalizado, sin mínimos de volumen. Preparar 1 post LinkedIn + 1 email a clientes actuales.</p>
-          </div>
-        </div>
-
-        <div class="action">
-          <div class="action-emoji">🟡</div>
-          <div>
-            <span class="tag tag-yellow">Esta semana</span>
-            <h3>Crear contenido logístico para Hot Sale</h3>
-            <p>LinkedIn: "5 errores logísticos que destruyen tu Hot Sale". Publicar el 5 o 6 de mayo para máximo impacto. Posicionar a Fixy como experto, no solo proveedor.</p>
-          </div>
-        </div>
-
-        <div class="action">
-          <div class="action-emoji">🟡</div>
-          <div>
-            <span class="tag tag-yellow">Esta semana</span>
-            <h3>Investigar Mail Boxes Etc. — nuevo entrante</h3>
-            <p>MBE desembarcó en Argentina con USD 6M bajo modelo de franquicias, apuntando a pymes logísticas. Analizar si es amenaza directa o posible aliado.</p>
-          </div>
-        </div>
-
-        <div class="action">
-          <div class="action-emoji">🟢</div>
-          <div>
-            <span class="tag tag-green">Cuando puedas</span>
-            <h3>Gestionar presencia en eCommerce Day Argentina</h3>
-            <p>Evaluar participación como expositor, sponsor o speaker en el evento del 28 de agosto. Iniciar conversaciones en mayo para mejores precios.</p>
-          </div>
-        </div>
-
       </div>
+
+      <div class="action">
+        <div class="action-emoji">🔴</div>
+        <div>
+          <span class="tag tag-red">Urgente — esta semana</span>
+          <h3>Diferenciarse de Andreani para pymes</h3>
+          <p>Andreani apuesta a same-day para grandes marcas (26.000 paquetes/hora). El gap de Fixy: más flexible, personalizado, sin mínimos de volumen. 1 post LinkedIn + 1 email a clientes.</p>
+        </div>
+      </div>
+
+      <div class="action">
+        <div class="action-emoji">🟡</div>
+        <div>
+          <span class="tag tag-yellow">Esta semana</span>
+          <h3>Crear contenido logístico para Hot Sale</h3>
+          <p>LinkedIn: "5 errores logísticos que destruyen tu Hot Sale". Publicar el 5 o 6 de mayo para máximo impacto.</p>
+        </div>
+      </div>
+
+      <div class="action">
+        <div class="action-emoji">🟡</div>
+        <div>
+          <span class="tag tag-yellow">Esta semana</span>
+          <h3>Investigar Mail Boxes Etc. — nuevo entrante</h3>
+          <p>MBE desembarcó con USD 6M bajo modelo de franquicias apuntando a pymes logísticas. Analizar si es amenaza directa o posible aliado.</p>
+        </div>
+      </div>
+
+      <div class="action">
+        <div class="action-emoji">🟢</div>
+        <div>
+          <span class="tag tag-green">Cuando puedas</span>
+          <h3>Presencia en eCommerce Day Argentina</h3>
+          <p>Evaluar participación como expositor, sponsor o speaker el 28 de agosto. Iniciar conversaciones en mayo para mejores precios.</p>
+        </div>
+      </div>
+
     </div>
   </div>
 
   <!-- SECCIÓN 3: TENDENCIAS -->
-  <div class="section">
+  <div class="section reveal reveal-delay-2" id="tendencias">
     <div class="section-head">
       <div class="section-num d">3</div>
       <div class="section-title">📈 Tendencias Ecommerce LATAM</div>
@@ -579,37 +813,37 @@
 
       <div class="trend">
         <h3>🤖 Comercio agéntico: la IA que compra y vende sola ya está en Argentina</h3>
-        <p>Grandes marcas delegan el <strong>65% de sus consultas</strong> a agentes de IA autónomos 24/7. El ecommerce conversacional impactará directo en los volúmenes logísticos: más órdenes, menos fricción, entregas más urgentes.</p>
-        <a href="https://www.infobae.com/def/2026/02/28/e-commerce-2026-en-argentina-ia-y-comercio-agentico-las-claves-de-la-nueva-era-digital/" target="_blank">🔗 Infobae — IA y comercio agéntico 2026</a>
+        <p>Grandes marcas delegan el <strong>65% de sus consultas</strong> a agentes de IA autónomos 24/7. Más órdenes, menos fricción, entregas más urgentes.</p>
+        <a href="https://www.infobae.com/def/2026/02/28/e-commerce-2026-en-argentina-ia-y-comercio-agentico-las-claves-de-la-nueva-era-digital/" target="_blank">🔗 Infobae — IA y comercio agéntico 2026 ↗</a>
       </div>
 
       <div class="trend">
         <h3>📦 Envío gratis como estándar: 42% de las órdenes</h3>
-        <p>El costo promedio de envío subió de $4.754 a $7.891 entre 2024 y 2025. Las marcas usan tecnología para absorber ese costo y ahorrar hasta un <strong>15% en logística</strong>. Fixy puede vender eficiencia, no solo velocidad.</p>
-        <a href="https://www.tiendanube.com/blog/ecommerce-informe/" target="_blank">🔗 Tiendanube — NubeCommerce 2026</a>
+        <p>Costo promedio de envío subió de $4.754 a $7.891. Las marcas usan tecnología para absorber ese costo y ahorrar hasta un <strong>15% en logística</strong>.</p>
+        <a href="https://www.tiendanube.com/blog/ecommerce-informe/" target="_blank">🔗 Tiendanube — NubeCommerce 2026 ↗</a>
       </div>
 
       <div class="trend">
         <h3>🏪 Canal propio DTC creció 57%: marcas que huyen de los marketplaces</h3>
-        <p>Sin abandonar Mercado Libre, las marcas fortalecen sus tiendas propias. Para Fixy, los DTC sin logística propia son el cliente natural de un operador last-mile especializado.</p>
-        <a href="https://expansion.mx/tecnologia/2026/04/01/ecommerce-fuera-marketplaces-crece-mexico-cambios-fiscales" target="_blank">🔗 Expansión — Marcas DTC fuera de marketplaces</a>
+        <p>Sin abandonar Mercado Libre, las marcas fortalecen sus tiendas propias. Los DTC sin logística propia son el cliente natural de Fixy.</p>
+        <a href="https://expansion.mx/tecnologia/2026/04/01/ecommerce-fuera-marketplaces-crece-mexico-cambios-fiscales" target="_blank">🔗 Expansión — Marcas DTC fuera de marketplaces ↗</a>
       </div>
 
       <div class="trend">
         <h3>🌎 Ecommerce ARG: +60% en 2025 y +25% en transacciones en enero 2026</h3>
-        <p>El sector facturó <strong>$35,3 billones</strong> en 2025 (CACE). Enero 2026 arrancó con 25% más transacciones que enero 2025. La demanda logística estructural es creciente.</p>
-        <a href="https://www.id4you.com/blog/ecommerce/ecommerce-argentina-2026-estudio-cace/" target="_blank">🔗 ID4YOU — Estudio Anual CACE 2026</a>
+        <p>El sector facturó <strong>$35,3 billones</strong> en 2025 (CACE). Enero 2026 arrancó con 25% más transacciones que enero 2025.</p>
+        <a href="https://www.id4you.com/blog/ecommerce/ecommerce-argentina-2026-estudio-cace/" target="_blank">🔗 ID4YOU — Estudio Anual CACE 2026 ↗</a>
       </div>
 
     </div>
   </div>
 
   <!-- SECCIÓN 4: RADAR -->
-  <div class="section">
+  <div class="section reveal reveal-delay-3" id="radar">
     <div class="section-head">
       <div class="section-num g">4</div>
       <div class="section-title">🎯 Radar de Competencia</div>
-      <div class="section-badge">Andreani · Correo Arg · Shipnow · +</div>
+      <div class="section-badge">Andreani · Correo Arg · Shipnow · MBE</div>
     </div>
     <div class="section-body">
 
@@ -619,9 +853,9 @@
           <span class="co-name">ANDREANI</span>
           <span class="tag tag-red" style="margin-left:auto">⚠️ Movimiento activo</span>
         </div>
-        <div class="radar-action">📌 <strong>Qué hicieron:</strong> Ampliaron "Llega Hoy" (same-day) en CABA, GBA y Córdoba. Incorporan maquinaria para pasar de 8.000 a <strong>26.000 paquetes/hora</strong>. USD 2,17M en IA y tech en 2025.</div>
-        <div class="radar-impact">⚡ <strong>Impacto en Fixy:</strong> Andreani sube la vara para grandes marcas, pero no es flexible para pymes. Fixy debe capitalizar ese gap: velocidad + flexibilidad sin mínimos.</div>
-        <div class="radar-source"><a href="https://infonegocios.info/nota-principal/andreani-amplia-su-fabrica-de-servicios-y-da-batalla-a-su-principal-problema-la-ansiedad-de-los-clientes-de-sus-clientes-entregas-next-day-y-same-day" target="_blank">🔗 Infonegocios</a></div>
+        <div class="radar-action">📌 <strong>Qué hicieron:</strong> Ampliaron "Llega Hoy" (same-day) en CABA, GBA y Córdoba. Maquinaria para pasar de 8.000 a <strong>26.000 paquetes/hora</strong>. USD 2,17M en IA y tech.</div>
+        <div class="radar-impact">⚡ <strong>Impacto en Fixy:</strong> Andreani sube la vara para grandes marcas, pero no es flexible para pymes. Capitalizar ese gap: velocidad + flexibilidad sin mínimos.</div>
+        <div class="radar-source"><a href="https://infonegocios.info/nota-principal/andreani-amplia-su-fabrica-de-servicios-y-da-batalla-a-su-principal-problema-la-ansiedad-de-los-clientes-de-sus-clientes-entregas-next-day-y-same-day" target="_blank">🔗 Infonegocios ↗</a></div>
       </div>
 
       <div class="radar">
@@ -630,18 +864,19 @@
           <span class="co-name">CORREO ARGENTINO</span>
           <span class="tag tag-red" style="margin-left:auto">⚠️ Movimiento activo</span>
         </div>
-        <div class="radar-action">📌 <strong>Qué hicieron:</strong> Inauguraron el primer sistema robótico de clasificación de paquetes de América Latina: <strong>240 robots</strong> en Monte Grande, 9.000 paquetes/hora con IA. Automatización total planificada para 2026.</div>
-        <div class="radar-impact">⚡ <strong>Impacto en Fixy:</strong> Correo Argentino triplica su capacidad. Fixy debe diferenciarse en experiencia, trazabilidad y atención al cliente que el Correo nunca supo dar.</div>
-        <div class="radar-source"><a href="https://www.correoargentino.com.ar/correo-argentino-inauguro-el-primer-sistema-de-clasificacion-robotica-de-paquetes-en-latinoamerica" target="_blank">🔗 Correo Argentino</a></div>
+        <div class="radar-action">📌 <strong>Qué hicieron:</strong> Primer sistema robótico de clasificación de LATAM: <strong>240 robots</strong> en Monte Grande, 9.000 paquetes/hora con IA.</div>
+        <div class="radar-impact">⚡ <strong>Impacto en Fixy:</strong> Triplican capacidad. Fixy debe diferenciarse en experiencia y trazabilidad que el Correo nunca supo dar.</div>
+        <div class="radar-source"><a href="https://www.correoargentino.com.ar/correo-argentino-inauguro-el-primer-sistema-de-clasificacion-robotica-de-paquetes-en-latinoamerica" target="_blank">🔗 Correo Argentino ↗</a></div>
       </div>
 
       <div class="radar">
         <div class="radar-top">
           <div class="rdot rdot-yellow"></div>
           <span class="co-name">SHIPNOW</span>
+          <span class="tag tag-yellow" style="margin-left:auto">👀 Monitorear</span>
         </div>
-        <div class="radar-action">📌 Creciendo en fulfillment B2B con foco en omnicanalidad e IA. Movimiento hacia el mismo espacio que Fixy.</div>
-        <div class="radar-source"><a href="https://shipnow.com.ar" target="_blank">🔗 shipnow.com.ar</a></div>
+        <div class="radar-action">📌 Creciendo en fulfillment B2B con IA y omnicanalidad. Movimiento hacia el mismo espacio que Fixy.</div>
+        <div class="radar-source"><a href="https://shipnow.com.ar" target="_blank">🔗 shipnow.com.ar ↗</a></div>
       </div>
 
       <div class="radar">
@@ -650,9 +885,9 @@
           <span class="co-name">MAIL BOXES ETC. — Nuevo entrante</span>
           <span class="tag tag-yellow" style="margin-left:auto">👀 A monitorear</span>
         </div>
-        <div class="radar-action">📌 USD 6M de inversión bajo modelo de franquicias. Apunta a logística integral para pymes ecommerce.</div>
-        <div class="radar-impact">⚡ <strong>Impacto en Fixy:</strong> Nuevo competidor internacional en el mismo segmento. Evaluar partnership o diferenciación.</div>
-        <div class="radar-source"><a href="https://www.ambito.com/negocios/logistica-ultima-milla-se-suman-jugadores-un-negocio-que-crece-la-mano-del-aumento-del-ecommerce-n6253062" target="_blank">🔗 Ámbito</a></div>
+        <div class="radar-action">📌 USD 6M de inversión, modelo de franquicias. Apunta a logística integral para pymes ecommerce.</div>
+        <div class="radar-impact">⚡ <strong>Impacto en Fixy:</strong> Nuevo competidor internacional. Evaluar partnership o diferenciación.</div>
+        <div class="radar-source"><a href="https://www.ambito.com/negocios/logistica-ultima-milla-se-suman-jugadores-un-negocio-que-crece-la-mano-del-aumento-del-ecommerce-n6253062" target="_blank">🔗 Ámbito ↗</a></div>
       </div>
 
       <div class="radar">
@@ -667,7 +902,7 @@
   </div>
 
   <!-- BONUS -->
-  <div class="section">
+  <div class="section reveal">
     <div class="section-head">
       <div class="section-num y">💡</div>
       <div class="section-title">Herramienta del Día</div>
@@ -675,11 +910,11 @@
     <div class="section-body">
       <div class="bonus">
         <h3>📧 Klaviyo — Marketing automation con segmentación por comportamiento</h3>
-        <p>Con el Hot Sale a 12 días, el momento de activar email marketing inteligente es ahora. Klaviyo permite segmentar por comportamiento (carrito abandonado, histórico Hot Sale, frecuencia de compra) y lanzar secuencias sin esfuerzo manual.</p>
+        <p>Con el Hot Sale a 12 días, el momento de activar email marketing inteligente es ahora. Segmentá por comportamiento y lanzá secuencias sin esfuerzo manual.</p>
         <div class="bonus-tip">
-          <strong>Tip concreto para Fixy:</strong> Si tus clientes ecommerce usan Klaviyo, ofrecer un brief de "cómo comunicar la experiencia logística antes y durante el Hot Sale" puede ser un diferencial de servicio. Secuencia de 3 emails: (1) anuncio de participación, (2) tracking en tiempo real como beneficio Fixy, (3) post-compra con seguimiento.
+          <strong>Tip concreto para Fixy:</strong> Ofrecé a tus clientes ecommerce una secuencia de 3 emails: (1) anuncio de participación en Hot Sale, (2) tracking en tiempo real como beneficio Fixy, (3) post-compra con seguimiento. Un diferencial que pocas logísticas ofrecen.
         </div>
-        <a href="https://www.klaviyo.com" target="_blank">🔗 klaviyo.com →</a>
+        <a href="https://www.klaviyo.com" target="_blank">🔗 Ir a klaviyo.com →</a>
       </div>
     </div>
   </div>
@@ -698,5 +933,84 @@
   </div>
 </footer>
 
+<!-- BACK TO TOP -->
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Volver arriba">↑</button>
+
+<script>
+  // ── PROGRESS BAR ──
+  const bar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY;
+    const total = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = (scrolled / total * 100) + '%';
+
+    // Back to top
+    const btn = document.getElementById('back-top');
+    btn.classList.toggle('show', scrolled > 400);
+  });
+
+  // ── SCROLL REVEAL ──
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => observer.observe(el));
+
+  // ── ANIMATED COUNTERS ──
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.target);
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    const format = el.dataset.format;
+    const duration = 1800;
+    const start = performance.now();
+
+    function update(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      // Ease out cubic
+      const ease = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(ease * target);
+
+      if (format === 'currency') {
+        el.textContent = prefix + current.toLocaleString('es-AR');
+      } else {
+        el.textContent = prefix + current + suffix;
+      }
+
+      if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  }
+
+  // Trigger counters when stats bar visible
+  const statsBar = document.querySelector('.stats-bar');
+  const statsObserver = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      document.querySelectorAll('[data-target]').forEach(animateCounter);
+      statsObserver.disconnect();
+    }
+  }, { threshold: 0.3 });
+  statsObserver.observe(statsBar);
+
+  // ── SMOOTH ACTIVE NAV ──
+  const sections = document.querySelectorAll('section[id], div[id]');
+  const navLinks = document.querySelectorAll('.topnav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 120) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--blue)' : '';
+      a.style.background = a.getAttribute('href') === '#' + current ? 'var(--blue-light)' : '';
+    });
+  });
+</script>
 </body>
 </html>

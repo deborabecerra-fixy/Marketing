@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Archivo de Briefings — Fixy Logística</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --blue: #008FC3; --blue-dark: #004d73; --yellow: #FBBE37; --bg: #F3F3F2; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Poppins', sans-serif; background: var(--bg); color: #1a1a1a; }
+  header {
+    background: linear-gradient(135deg, var(--blue-dark), var(--blue));
+    padding: 40px 32px; text-align: center; color: white;
+  }
+  header .logo { font-size: 2rem; font-weight: 800; letter-spacing: -1px; }
+  header .logo span { color: var(--yellow); }
+  header p { font-size: 0.9rem; color: rgba(255,255,255,0.75); margin-top: 8px; }
+  main { max-width: 760px; margin: 50px auto; padding: 0 24px 60px; }
+  h2 { font-size: 1.4rem; font-weight: 700; color: var(--blue-dark); margin-bottom: 24px; }
+  .briefing-list { list-style: none; display: grid; gap: 12px; }
+  .briefing-list li a {
+    display: flex; align-items: center; gap: 14px;
+    background: white; border-radius: 12px; padding: 18px 22px;
+    text-decoration: none; color: var(--blue-dark); font-weight: 600; font-size: 0.95rem;
+    border: 1px solid rgba(0,0,0,0.06);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  }
+  .briefing-list li a:hover {
+    transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,143,195,0.15);
+    border-color: var(--blue);
+  }
+  footer {
+    background: var(--blue-dark); padding: 28px 32px; text-align: center;
+    color: rgba(255,255,255,0.5); font-size: 0.8rem; font-family: 'Poppins', sans-serif;
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">Fixy<span>.</span></div>
+  <p>Archivo histórico de Briefings Diarios de Marketing</p>
+</header>
+<main>
+  <h2>📁 Todos los briefings</h2>
+  <ul class="briefing-list">
+        <li><a href="briefings/2026-04-30.html">📊 Briefing — 30 de abril de 2026</a></li>
+  </ul>
+</main>
+<footer>Fixy Logística © 2026 — Inteligencia de Mercado</footer>
+</body>
+</html>

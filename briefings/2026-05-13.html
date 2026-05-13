@@ -420,22 +420,22 @@ footer p{font-size:13px;color:rgba(255,255,255,.7);margin-bottom:20px}
 
 <div class="stats">
   <div class="stat">
-    <div class="stat-num" data-target="0" data-suffix="">0</div>
+    <div class="stat-num" data-target="4" data-suffix="">4</div>
     <div class="stat-label">Días al cierre Hot Week</div>
     <div class="stat-sub">Hoy 13/05 — Hot Week hasta 17/05</div>
   </div>
   <div class="stat">
-    <div class="stat-num sun" data-target="60" data-suffix="%">0</div>
+    <div class="stat-num sun" data-target="60" data-suffix="%">60%</div>
     <div class="stat-label">Crecimiento ecommerce ARG</div>
     <div class="stat-sub">2025 vs 2024 (CACE)</div>
   </div>
   <div class="stat">
-    <div class="stat-num" data-target="48" data-suffix="%">0</div>
+    <div class="stat-num" data-target="48" data-suffix="%">48%</div>
     <div class="stat-label">PyMEs en Hot Sale 2026</div>
     <div class="stat-sub">Del total de marcas adheridas</div>
   </div>
   <div class="stat">
-    <div class="stat-num sun" data-target="27" data-suffix="%">0</div>
+    <div class="stat-num sun" data-target="27" data-suffix="%">27%</div>
     <div class="stat-label">Costo logístico s/ valor</div>
     <div class="stat-sub">El más alto de LATAM</div>
   </div>
@@ -706,28 +706,26 @@ document.querySelectorAll('.section').forEach(s=>io.observe(s));
 
 // Animated counters
 const ease=t=>1-Math.pow(1-t,3);
-const numIO=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(!e.isIntersecting) return;
-    const el=e.target;
-    const target=+el.dataset.target;
-    const suffix=el.dataset.suffix||'';
-    const dur=1400;const start=performance.now();
-    function tick(now){
-      const p=Math.min((now-start)/dur,1);
-      el.textContent=Math.round(target*ease(p))+suffix;
-      if(p<1) requestAnimationFrame(tick);
-    }
-    requestAnimationFrame(tick);
-    numIO.unobserve(el);
-  });
-},{threshold:.4});
-document.querySelectorAll('.stat-num').forEach(el=>numIO.observe(el));
-
-// Back to top
-const topBtn=document.getElementById('topBtn');
-window.addEventListener('scroll',()=>{
-  if(window.scrollY>400) topBtn.classList.add('show');
-  else topBtn.classList.remove('show');
-});
-topBtn.addEventListener('click',
+function animateNum(el){
+  const target=+el.dataset.target;
+  const suffix=el.dataset.suffix||'';
+  if(isNaN(target)){return;}
+  // Set to 0 only when about to animate (avoids "0" stuck state if JS fails)
+  el.textContent='0'+suffix;
+  const dur=1400;const start=performance.now();
+  function tick(now){
+    const p=Math.min((now-start)/dur,1);
+    el.textContent=Math.round(target*ease(p))+suffix;
+    if(p<1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+if('IntersectionObserver' in window){
+  const numIO=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{
+      if(!e.isIntersecting) return;
+      animateNum(e.target);
+      numIO.unobserve(e.target);
+    });
+  },{threshold:.05, rootMargin:'0px 0px -10px 0px'});
+  document.querySelectorAll('.stat-num').forEach(el=>numIO.o

@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Briefing Diario Fixy — 27 de mayo de 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--sky-blue:#008FC3;--sky-dark:#004d73;--sky-light:#e0f4fb;--sun-yellow:#FBBE37;--graphite:#9EA3A5;--paper:#F3F3F2;--white:#ffffff;--text-dark:#1a2332;--text-mid:#3a4a5c;--shadow-blue:rgba(0,143,195,.18)}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'Poppins',sans-serif;background:var(--paper);color:var(--text-dark);overflow-x:hidden}
+  #progress-bar{position:fixed;top:0;left:0;height:4px;width:0%;background:linear-gradient(90deg,var(--sky-blue),var(--sun-yellow));z-index:9999;transition:width .1s linear}
+  nav{position:fixed;top:4px;left:0;right:0;z-index:1000;padding:10px 32px;display:flex;align-items:center;justify-content:space-between;background:rgba(0,77,115,.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(255,255,255,.12)}
+  .nav-logo{font-size:1.6rem;font-weight:800;color:#fff;letter-spacing:-1px;text-decoration:none}
+  .nav-logo span{color:var(--sun-yellow)}
+  .nav-links{display:flex;gap:20px;list-style:none}
+  .nav-links a{color:rgba(255,255,255,.82);text-decoration:none;font-size:.78rem;font-weight:500;transition:color .2s}
+  .nav-links a:hover{color:var(--sun-yellow)}
+  .nav-badge{background:var(--sun-yellow);color:var(--sky-dark);font-size:.68rem;font-weight:700;padding:4px 10px;border-radius:20px;animation:pulse-badge 2s ease-in-out infinite}
+  @keyframes pulse-badge{0%,100%{box-shadow:0 0 0 0 rgba(251,190,55,.5)}50%{box-shadow:0 0 0 8px rgba(251,190,55,0)}}
+  #hero{min-height:100vh;background:linear-gradient(135deg,#004d73 0%,#008FC3 60%,#00b4e0 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;position:relative;overflow:hidden;padding-top:80px}
+  .hero-grid{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,.06) 1px,transparent 1px);background-size:32px 32px;pointer-events:none}
+  .orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;animation:float-orb 8s ease-in-out infinite}
+  .orb1{width:420px;height:420px;background:rgba(0,180,224,.28);top:-80px;left:-100px}
+  .orb2{width:300px;height:300px;background:rgba(251,190,55,.18);bottom:40px;right:-60px;animation-delay:-3s}
+  .orb3{width:200px;height:200px;background:rgba(0,143,195,.35);top:50%;right:15%;animation-delay:-5s}
+  @keyframes float-orb{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-30px) scale(1.05)}}
+  .hero-content{position:relative;z-index:2}
+  .hero-date{font-size:.85rem;font-weight:500;color:rgba(255,255,255,.7);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;animation:fadeUp .8s ease both}
+  .hero-title{font-size:clamp(2.4rem,6vw,4.2rem);font-weight:800;color:#fff;line-height:1.1;margin-bottom:16px;animation:fadeUp .8s .15s ease both}
+  .hero-title em{font-style:normal;color:var(--sun-yellow)}
+  .hero-sub{font-size:1.05rem;color:rgba(255,255,255,.8);max-width:560px;margin:0 auto 28px;animation:fadeUp .8s .3s ease both}
+  .hero-pills{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;animation:fadeUp .8s .45s ease both}
+  .pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);color:#fff;font-size:.76rem;font-weight:500;padding:6px 14px;border-radius:20px;backdrop-filter:blur(8px)}
+  .pill.yellow{background:rgba(251,190,55,.18);border-color:rgba(251,190,55,.4);color:var(--sun-yellow)}
+  .scroll-indicator{margin-top:52px;animation:fadeUp .8s .6s ease both}
+  .scroll-indicator span{display:block;width:24px;height:40px;border:2px solid rgba(255,255,255,.5);border-radius:12px;margin:0 auto;position:relative}
+  .scroll-indicator span::after{content:'';position:absolute;width:4px;height:8px;background:rgba(255,255,255,.8);border-radius:2px;left:50%;transform:translateX(-50%);top:5px;animation:scroll-dot 2s infinite}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes scroll-dot{0%{opacity:1;top:5px}100%{opacity:0;top:22px}}
+  #stats{background:var(--white);border-bottom:2px solid var(--sky-light);padding:32px 40px}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1100px;margin:0 auto}
+  .stat-card{text-align:center;padding:20px;border-radius:14px;background:var(--paper);transition:transform .3s,box-shadow .3s}
+  .stat-card:hover{transform:translateY(-4px);box-shadow:0 8px 24px var(--shadow-blue)}
+  .stat-num{font-size:2.4rem;font-weight:800;color:var(--sky-blue);line-height:1}
+  .stat-label{font-size:.78rem;color:var(--graphite);margin-top:6px;font-weight:500}
+  .stat-icon{font-size:1.6rem;margin-bottom:8px}
+  #alert-wrap{max-width:1100px;margin:32px auto;padding:0 24px}
+  #alert{background:linear-gradient(135deg,#fffbeb,#fff8dc);border-left:5px solid var(--sun-yellow);border-radius:12px;padding:20px 28px;display:flex;align-items:flex-start;gap:16px;box-shadow:0 4px 16px rgba(251,190,55,.2)}
+  .alert-icon{font-size:2rem;flex-shrink:0}
+  .alert-title{font-size:1rem;font-weight:700;color:var(--sky-dark)}
+  .alert-body{font-size:.88rem;color:var(--text-mid);margin-top:4px;line-height:1.6}
+  .section{max-width:1100px;margin:0 auto;padding:48px 24px}
+  .section-header{display:flex;align-items:center;gap:14px;margin-bottom:32px}
+  .section-icon{width:44px;height:44px;background:linear-gradient(135deg,var(--sky-blue),var(--sky-dark));border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+  .section-title{font-size:1.5rem;font-weight:700;color:var(--text-dark)}
+  .section-sub{font-size:.84rem;color:var(--graphite);margin-top:2px}
+  .events-grid{display:grid;gap:14px}
+  .event-card{background:var(--white);border-radius:14px;padding:18px 20px;display:flex;align-items:flex-start;gap:18px;box-shadow:0 2px 12px rgba(0,0,0,.06);transition:transform .25s,box-shadow .25s;border-left:3px solid transparent}
+  .event-card:hover{transform:translateY(-3px);box-shadow:0 8px 28px var(--shadow-blue);border-left-color:var(--sky-blue)}
+  .event-date-block{background:linear-gradient(135deg,var(--sky-blue),var(--sky-dark));color:#fff;border-radius:10px;padding:10px 14px;text-align:center;min-width:64px;flex-shrink:0}
+  .event-month{font-size:.65rem;text-transform:uppercase;letter-spacing:1px;opacity:.85}
+  .event-day{font-size:1.6rem;font-weight:800;line-height:1}
+  .event-info{flex:1}
+  .event-name{font-size:.95rem;font-weight:700;color:var(--text-dark)}
+  .event-desc{font-size:.8rem;color:var(--graphite);margin-top:4px;line-height:1.5}
+  .event-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .tag{font-size:.68rem;font-weight:600;padding:3px 9px;border-radius:20px}
+  .tag-red{background:#fee2e2;color:#dc2626}
+  .tag-yellow{background:#fef9c3;color:#b45309}
+  .tag-blue{background:#dbeafe;color:#1d4ed8}
+  .tag-green{background:#dcfce7;color:#15803d}
+  .event-link{font-size:.72rem;color:var(--sky-blue);text-decoration:none;font-weight:600;margin-top:6px;display:inline-block}
+  .event-link:hover{text-decoration:underline}
+  .actions-list{display:grid;gap:12px}
+  .action-card{background:var(--white);border-radius:14px;padding:18px 22px;display:flex;align-items:flex-start;gap:14px;box-shadow:0 2px 10px rgba(0,0,0,.06);transition:transform .2s,box-shadow .2s}
+  .action-card:hover{transform:translateX(6px);box-shadow:0 6px 22px var(--shadow-blue)}
+  .action-priority{font-size:1.4rem;flex-shrink:0;padding-top:2px}
+  .action-title{font-size:.95rem;font-weight:700;color:var(--text-dark)}
+  .action-body{font-size:.82rem;color:var(--graphite);margin-top:5px;line-height:1.55}
+  .trends-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:18px}
+  .trend-card{background:var(--white);border-left:4px solid var(--sky-blue);border-radius:12px;padding:20px 22px;box-shadow:0 2px 12px rgba(0,0,0,.06);transition:transform .25s,box-shadow .25s}
+  .trend-card:hover{transform:translateY(-4px);box-shadow:0 10px 28px var(--shadow-blue)}
+  .trend-label{font-size:.68rem;font-weight:700;color:var(--sky-blue);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+  .trend-title{font-size:.95rem;font-weight:700;color:var(--text-dark);margin-bottom:8px}
+  .trend-body{font-size:.82rem;color:var(--text-mid);line-height:1.6}
+  .trend-link{display:inline-block;margin-top:10px;font-size:.75rem;color:var(--sky-blue);font-weight:600;text-decoration:none}
+  .trend-link:hover{text-decoration:underline}
+  .radar-grid{display:grid;gap:14px}
+  .radar-card{background:var(--white);border-radius:14px;padding:18px 22px;display:flex;align-items:flex-start;gap:16px;box-shadow:0 2px 10px rgba(0,0,0,.06);transition:transform .25s,box-shadow .25s}
+  .radar-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px var(--shadow-blue)}
+  .radar-dot-wrap{padding-top:4px;flex-shrink:0}
+  .dot{width:12px;height:12px;border-radius:50%;background:#ef4444;animation:pulse-dot 1.5s ease-in-out infinite}
+  .dot-quiet{background:var(--graphite);animation:none}
+  @keyframes pulse-dot{0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.5)}50%{box-shadow:0 0 0 6px rgba(239,68,68,0)}}
+  .radar-name{font-size:.95rem;font-weight:700;color:var(--text-dark);margin-bottom:4px}
+  .radar-action{font-size:.82rem;color:var(--text-mid);line-height:1.55}
+  .radar-impact{display:inline-block;background:#fffbeb;border:1px solid #fcd34d;color:#92400e;font-size:.75rem;font-weight:600;padding:4px 10px;border-radius:8px;margin-top:8px}
+  .radar-source{display:inline-block;margin-left:8px;font-size:.72rem;color:var(--sky-blue);text-decoration:none;font-weight:600}
+  .radar-source:hover{text-decoration:underline}
+  .bonus-card{background:linear-gradient(135deg,#e0f4fb 0%,#b3e5f7 100%);border:1px solid rgba(0,143,195,.2);border-radius:16px;padding:28px 32px;position:relative;overflow:hidden}
+  .bonus-card::before{content:'';position:absolute;top:-40px;right:-40px;width:180px;height:180px;background:radial-gradient(circle,rgba(0,143,195,.15),transparent 70%);border-radius:50%}
+  .bonus-label{font-size:.72rem;font-weight:700;color:var(--sky-blue);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:12px}
+  .bonus-title{font-size:1.3rem;font-weight:800;color:var(--sky-dark);margin-bottom:10px}
+  .bonus-body{font-size:.88rem;color:var(--text-mid);line-height:1.65;max-width:700px}
+  .bonus-cta{display:inline-block;margin-top:16px;background:var(--sky-blue);color:#fff;font-size:.82rem;font-weight:600;padding:9px 20px;border-radius:10px;text-decoration:none;transition:background .2s,transform .2s}
+  .bonus-cta:hover{background:var(--sky-dark);transform:translateY(-2px)}
+  footer{background:var(--sky-dark);color:rgba(255,255,255,.75);padding:40px 32px;margin-top:48px}
+  .footer-inner{max-width:1100px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px}
+  .footer-logo{font-size:2rem;font-weight:800;color:#fff}
+  .footer-logo span{color:var(--sun-yellow)}
+  .footer-tagline{font-size:.85rem;color:rgba(255,255,255,.6)}
+  .footer-sources{font-size:.72rem;color:rgba(255,255,255,.45);line-height:1.7;max-width:800px}
+  .footer-divider{width:60px;height:2px;background:rgba(255,255,255,.15);border-radius:2px}
+  #back-top{position:fixed;bottom:28px;right:28px;width:46px;height:46px;background:var(--sky-blue);color:#fff;border:none;border-radius:50%;font-size:1.2rem;cursor:pointer;box-shadow:0 4px 16px rgba(0,143,195,.4);transition:opacity .3s,transform .3s;opacity:0;transform:translateY(16px);z-index:900}
+  #back-top.visible{opacity:1;transform:translateY(0)}
+  #back-top:hover{background:var(--sky-dark);transform:scale(1.1)}
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.visible{opacity:1;transform:translateY(0)}
+  .section-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(0,143,195,.15),transparent);margin:0 24px}
+  @media(max-width:768px){.stats-grid{grid-template-columns:repeat(2,1fr)}.nav-links{display:none}.hero-title{font-size:2rem}.trends-grid{grid-template-columns:1fr}nav{padding:10px 16px}#alert-wrap{padding:0 16px}}
+</style>
+</head>
+<body>
+<div id="progress-bar"></div>
+<nav>
+  <a href="#hero" class="nav-logo">F<span>.</span>ixy</a>
+  <ul class="nav-links">
+    <li><a href="#agenda">Agenda</a></li>
+    <li><a href="#acciones">Acciones</a></li>
+    <li><a href="#tendencias">Tendencias</a></li>
+    <li><a href="#radar">Radar</a></li>
+    <li><a href="#bonus">Tip</a></li>
+  </ul>
+  <span class="nav-badge">⚡ eCommerce Day: 27 ago</span>
+</nav>
+
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="hero-content">
+    <p class="hero-date">Miércoles 27 de mayo de 2026</p>
+    <h1 class="hero-title">Briefing Diario<br><em>Fixy Logística</em></h1>
+    <p class="hero-sub">Inteligencia de mercado para logística last-mile y ecommerce en Argentina &amp; LATAM</p>
+    <div class="hero-pills">
+      <span class="pill">🇦🇷 Ecommerce ARG</span>
+      <span class="pill yellow">🔥 Post Hot Sale</span>
+      <span class="pill">📦 Last-Mile</span>
+      <span class="pill">🤖 IA &amp; Logística</span>
+      <span class="pill">🏪 Competencia</span>
+    </div>
+    <div class="scroll-indicator"><span></span></div>
+  </div>
+</section>
+
+<section id="stats">
+  <div class="stats-grid">
+    <div class="stat-card reveal"><div class="stat-icon">📅</div><div class="stat-num" data-target="92">0</div><div class="stat-label">días hasta eCommerce Day ARG</div></div>
+    <div class="stat-card reveal"><div class="stat-icon">📈</div><div class="stat-num" data-target="19">0</div><div class="stat-label">% crecimiento ecommerce ARG (Hot Sale 2026)</div></div>
+    <div class="stat-card reveal"><div class="stat-icon">🚚</div><div class="stat-num" data-target="42">0</div><div class="stat-label">% órdenes con envío gratis (Tiendanube 2026)</div></div>
+    <div class="stat-card reveal"><div class="stat-icon">⚡</div><div class="stat-num" data-target="37">0</div><div class="stat-label">% envíos entregados en menos de 24 hs</div></div>
+  </div>
+</section>
+
+<div id="alert-wrap">
+  <div id="alert" class="reveal">
+    <div class="alert-icon">⚠️</div>
+    <div>
+      <div class="alert-title">Ventana post-Hot Sale activa — actuar esta semana</div>
+      <div class="alert-body">El Hot Sale 2026 cerró el 13/05 con $673 mil millones facturados (+19% vs 2025). Las marcas están evaluando proveedores logísticos para el próximo gran evento. Esta semana es clave: la memoria de los problemas de entrega está fresca. Ideal para contactar prospectos y clientes.</div>
+    </div>
+  </div>
+</div>
+
+<section class="section" id="agenda">
+  <div class="section-header reveal">
+    <div class="section-icon">📆</div>
+    <div>
+      <div class="section-title">Agenda de Eventos — Próximos 60 días</div>
+      <div class="section-sub">Ecommerce, logística y tecnología · Argentina &amp; LATAM</div>
+    </div>
+  </div>
+  <div class="events-grid">
+
+    <div class="event-card reveal">
+      <div class="event-date-block"><div class="event-month">Jun</div><div class="event-day">21</div></div>
+      <div class="event-info">
+        <div class="event-name">Día del Padre 🎁</div>
+        <div class="event-desc">Alta demanda de entregas a tiempo. Segunda fecha más importante del 2° semestre. Quedan 25 días — ideal para armar propuesta logística dedicada a marcas de indumentaria, tecnología y regalos.</div>
+        <div class="event-tags"><span class="tag tag-yellow">🟡 Preparar ahora</span><span class="tag tag-blue">Ecommerce ARG</span></div>
+      </div>
+    </div>
+
+    <div class="event-card reveal">
+      <div class="event-date-block" style="background:linear-gradient(135deg,#0ea5e9,#0284c7)"><div class="event-month">Jul</div><div class="event-day">14</div></div>
+      <div class="event-info">
+        <div class="event-name">Winter Sale / Liquidación de Invierno</div>
+        <div class="event-desc">14–18 julio. Período de descuentos en indumentaria y calzado de invierno. Alta rotación logística. Clave para clientes de Fixy en textil y moda.</div>
+        <div class="event-tags"><span class="tag tag-green">🟢 Planificar</span><span class="tag tag-blue">Moda &amp; Textil</span></div>
+      </div>
+    </div>
+
+    <div class="event-card reveal">
+      <div class="event-date-block" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9)"><div class="event-month">Jul</div><div class="event-day">20</div></div>
+      <div class="event-info">
+        <div class="event-name">Día de la Amistad 💙</div>
+        <div class="event-desc">Campañas de regalo grupal, 2×1 y packs. Volumen moderado-alto. Oportunidad para mensajes de valor logístico a marcas con producto regalo.</div>
+        <div class="event-tags"><span class="tag tag-green">🟢 Planificar</span><span class="tag tag-blue">Ecommerce ARG</span></div>
+      </div>
+    </div>
+
+    <div class="event-card reveal">
+      <div class="event-date-block" style="background:linear-gradient(135deg,#f97316,#ea580c)"><div class="event-month">Ago</div><div class="event-day">27</div></div>
+      <div class="event-info">
+        <div class="event-name">eCommerce Day Argentina 2026 🏆</div>
+        <div class="event-desc">27–29 agosto · Centro de Convenciones CABA. Formato híbrido. El evento más importante del ecosistema digital regional. IA, comercio agéntico, networking, eCommerce Awards.</div>
+        <div class="event-tags"><span class="tag tag-red">🔴 Alta prioridad</span><span class="tag tag-blue">Presencial + Online</span></div>
+        <a href="https://ecommerceday.org.ar/2026/" target="_blank" class="event-link">→ ecommerceday.org.ar/2026</a>
+      </div>
+    </div>
+
+    <div class="event-card reveal">
+      <div class="event-date-block" style="background:linear-gradient(135deg,#10b981,#059669)"><div class="event-month">Oct</div><div class="event-day">16</div></div>
+      <div class="event-info">
+        <div class="event-name">Effix Colombia 2026 🌎</div>
+        <div class="event-desc">16–18 octubre · Plaza Mayor, Medellín. Evento clave de logística y supply chain en LATAM. Radar competitivo regional y contactos estratégicos.</div>
+        <div class="event-tags"><span class="tag tag-green">🟢 LATAM</span><span class="tag tag-blue">Logística</span></div>
+      </div>
+    </div>
+
+    <div class="event-card reveal">
+      <div class="event-date-block" style="background:linear-gradient(135deg,#ef4444,#dc2626)"><div class="event-month">Nov</div><div class="event-day">02</div></div>
+      <div class="event-info">
+        <div class="event-name">CyberMonday Argentina 2026 💻</div>
+        <div class="event-desc">2–4 noviembre · Organizado por CACE. 3 días de descuentos online. +800 marcas esperadas. Prever capacidad operativa con al menos 5 meses de anticipación.</div>
+        <div class="event-tags"><span class="tag tag-yellow">🟡 Planificación Q3</span><span class="tag tag-red">Gran volumen</span></div>
+        <a href="https://cace.org.ar/pages/cybermonday" target="_blank" class="event-link">→ cace.org.ar/pages/cybermonday</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="section" id="acciones">
+  <div class="section-header reveal">
+    <div class="section-icon">⚡</div>
+    <div>
+      <div class="section-title">Acciones para Fixy esta semana</div>
+      <div class="section-sub">5 movimientos concretos basados en el contexto del día</div>
+    </div>
+  </div>
+  <div class="actions-list">
+
+    <div class="action-card reveal">
+      <div class="action-priority">🔴</div>
+      <div>
+        <div class="action-title">Post-mortem Hot Sale: contactar clientes con picos de envíos</div>
+        <div class="action-body">El Hot Sale cerró el 13/05 con +19% de crecimiento. Los 15 días post-evento son la ventana ideal para hacer seguimiento comercial, preguntar cómo les fue, identificar cuellos de botella y proponer mejoras para el Día del Padre y CyberMonday. El timing es perfecto: el dolor logístico todavía está fresco.</div>
+      </div>
+    </div>
+
+    <div class="action-card reveal">
+      <div class="action-priority">🔴</div>
+      <div>
+        <div class="action-title">Monitorear privatización de Correo Argentino — oportunidad de captación</div>
+        <div class="action-body">El gobierno aceleró concesiones antes de 2027. DHL, Andreani, OCA y OCASA compiten por la red postal. Si el operador histórico cambia de manos habrá disrupción de precios y cobertura. Esta semana: definir un mensaje comercial proactivo para capturar clientes que usen Correo y busquen alternativas más estables.</div>
+      </div>
+    </div>
+
+    <div class="action-card reveal">
+      <div class="action-priority">🟡</div>
+      <div>
+        <div class="action-title">Preparar propuesta logística dedicada para Día del Padre (21 jun)</div>
+        <div class="action-body">25 días. Las marcas están definiendo su estrategia de fulfillment. Fixy puede armar un pitch específico con SLAs de entrega garantizados para la fecha, resaltando el diferencial de trazabilidad en tiempo real y experiencia de entrega para productos regalo.</div>
+      </div>
+    </div>
+
+    <div class="action-card reveal">
+      <div class="action-priority">🟡</div>
+      <div>
+        <div class="action-title">Actualizar deck comercial vs. Andreani y Mercado Libre</div>
+        <div class="action-body">Andreani automatizó su nodo (26k paquetes/hora) y MELI abrió un megacentro en Escobar. El estándar de velocidad sube. El diferenciador de Fixy para PyMEs es agilidad, integración directa y trato personalizado. Revisar propuesta de valor y destacar ventajas vs. operadores masivos: flexibilidad, soporte, sin mínimos de volumen.</div>
+      </div>
+    </div>
+
+    <div class="action-card reveal">
+      <div class="action-priority">🟢</div>
+      <div>
+        <div class="action-title">Inscripción y estrategia para eCommerce Day Argentina (27 ago)</div>
+        <div class="action-body">Quedan 92 días. Es el principal touchpoint del ecosistema. Evaluar presencia como sponsor, speaker o expositor. Contactar a la organización en ecommerceday.org.ar para consultar paquetes. Definir propuesta de valor para el público del evento (retailers, marcas, operadores logísticos).</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="section" id="tendencias">
+  <div class="section-header reveal">
+    <div class="section-icon">🚀</div>
+    <div>
+      <div class="section-title">Tendencias Ecommerce LATAM</div>
+      <div class="section-sub">Lo que está moviendo el mercado esta semana</div>
+    </div>
+  </div>
+  <div class="trends-grid">
+
+    <div class="trend-card reveal">
+      <div class="trend-label">Tendencia #1 · IA</div>
+      <div class="trend-title">Comercio Agéntico: agentes que asesoran y cierran ventas solos</div>
+      <div class="trend-body">El 88% de las marcas en Tiendanube usa o planea usar IA en 2026. El salto es el "comercio agéntico": agentes que no solo informan sino que recomiendan y cierran ventas 24/7 sin intervención humana. Para Fixy: la logística de los pedidos generados por IA necesita ser igual de fluida y automática.</div>
+      <a href="https://www.tiendanube.com/blog/ecommerce-informe/" target="_blank" class="trend-link">→ NubeCommerce 2026 · Tiendanube</a>
+    </div>
+
+    <div class="trend-card reveal">
+      <div class="trend-label">Tendencia #2 · Logística</div>
+      <div class="trend-title">Envío gratis ya no diferencia — diferencia la velocidad y trazabilidad</div>
+      <div class="trend-body">El 42% de las órdenes en Argentina incluye envío gratis y más del 80% de marcas lo usa. El envío gratis es commodity. Lo que distingue ahora es la velocidad, la trazabilidad en tiempo real y la facilidad para devoluciones. Oportunidad directa para el pitch comercial de Fixy.</div>
+      <a href="https://www.tiendanube.com/blog/ecommerce-informe/" target="_blank" class="trend-link">→ Tiendanube NubeCommerce</a>
+    </div>
+
+    <div class="trend-card reveal">
+      <div class="trend-label">Tendencia #3 · Velocidad</div>
+      <div class="trend-title">37% de envíos en Argentina se entregan en menos de 24 hs</div>
+      <div class="trend-body">Más de un tercio de los envíos ya llegan en menos de un día. La presión sobre la logística last-mile es estructural. Los operadores que no puedan escalar same-day/next-day quedarán fuera de contratos de retailers de alto volumen. Contexto favorable para Fixy si tiene SLAs competitivos.</div>
+      <a href="https://perspectives.com.ar/dpd-argentina-destaca-el-crecimiento-del-ecommerce-y-los-desafios-de-la-logistica-de-ultima-milla/" target="_blank" class="trend-link">→ DPD Argentina · Perspectives</a>
+    </div>
+
+    <div class="trend-card reveal">
+      <div class="trend-label">Tendencia #4 · Inversión</div>
+      <div class="trend-title">Retail Media crece 2.6× en LATAM hasta 2029</div>
+      <div class="trend-body">La publicidad dentro de plataformas de ecommerce es el canal de inversión de mayor crecimiento en la región. Los marketplaces se convierten en medios publicitarios. Para Fixy: los clientes que invierten en retail media generan más volumen y esperan que la logística esté a la altura.</div>
+      <a href="https://www.id4you.com/blog/ecommerce/tendencias-ecommerce-2026/" target="_blank" class="trend-link">→ Tendencias eCommerce 2026 · ID4YOU</a>
+    </div>
+
+    <div class="trend-card reveal">
+      <div class="trend-label">Tendencia #5 · Infraestructura</div>
+      <div class="trend-title">Mercado Libre invierte USD 115M en nuevo centro logístico en Escobar</div>
+      <div class="trend-body">El tercer centro de almacenamiento de MELI en Argentina —el más grande hasta la fecha— está en construcción junto a Plaza Logística. Suma flota aérea (Aerolíneas + Innova Logistic) para entregas en 48hs en todo el país. El estándar del mercado sube fuerte este año.</div>
+      <a href="https://www.cronista.com/negocios/entrega-por-aviones-y-nuevos-centros-logisticos-mercado-libre-sube-la-apuesta-en-el-mercado-local/" target="_blank" class="trend-link">→ El Cronista · MELI Logística</a>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="section" id="radar">
+  <div class="section-header reveal">
+    <div class="section-icon">📡</div>
+    <div>
+      <div class="section-title">Radar de Competencia</div>
+      <div class="section-sub">Movimientos de la semana · Punto rojo = actividad nueva detectada</div>
+    </div>
+  </div>
+  <div class="radar-grid">
+
+    <div class="radar-card reveal">
+      <div class="radar-dot-wrap"><div class="dot"></div></div>
+      <div class="radar-content">
+        <div class="radar-name">🟠 Andreani</div>
+        <div class="radar-action"><strong>Automatización masiva en Gral. Pacheco:</strong> USD 30M para pasar de 8.000 a 26.000 paquetes/hora con IA, sorters y preclasificación inteligente. Reduce gestión de 2 días a 4 horas. Lanzamiento agresivo de entregas next-day y same-day.</div>
+        <span class="radar-impact">⚠️ Impacto: sube el estándar de velocidad del mercado. Fixy debe revisar y comunicar sus propios SLAs.</span>
+        <a href="https://bahiacesar.com/2026/05/14/automatizacion-andreani-reduce-gestion-logistica-de-2-dias-a-4-horas/" target="_blank" class="radar-source">→ fuente</a>
+      </div>
+    </div>
+
+    <div class="radar-card reveal">
+      <div class="radar-dot-wrap"><div class="dot"></div></div>
+      <div class="radar-content">
+        <div class="radar-name">🟡 Mercado Libre Envíos</div>
+        <div class="radar-action"><strong>Megacentro Escobar + flota aérea:</strong> USD 115M con Plaza Logística. Aviones en Aerolíneas Argentinas y red Neuquén/Trelew vía Innova Logistic. Entregas en 48hs en todo el país. Operó 7 aviones diarios durante el Hot Sale.</div>
+        <span class="radar-impact">⚠️ MELI absorbe más volumen interno. Fixy debe diferenciarse con PyMEs que no usan MELI y necesitan flexibilidad.</span>
+        <a href="https://puntoapunto.com.ar/entregas-en-48-horas-y-nuevos-aviones-como-mercado-libre-redefine-la-logistica-en-argentina" target="_blank" class="radar-source">→ fuente</a>
+      </div>
+    </div>
+
+    <div class="radar-card reveal">
+      <div class="radar-dot-wrap"><div class="dot"></div></div>
+      <div class="radar-content">
+        <div class="radar-name">🔵 Correo Argentino</div>
+        <div class="radar-action"><strong>Proceso de concesión en marcha:</strong> El gobierno acelera antes de 2027. DHL, Andreani, OCA y OCASA en carrera. Correo ya suma servicio courier (Disposición ENACOM 6046/2026). Incertidumbre en precios y cobertura para sus actuales clientes.</div>
+        <span class="radar-impact">🟢 Oportunidad: clientes que usan Correo buscarán alternativas. Activar campaña de captación proactiva.</span>
+        <a href="https://www.canal26.com/economia/2026/05/26/el-gobierno-acelera-privatizaciones-de-empresas-estatales-y-busca-cerrar-concesiones-antes-de-2027/" target="_blank" class="radar-source">→ fuente (26/05)</a>
+      </div>
+    </div>
+
+    <div class="radar-card reveal">
+      <div class="radar-dot-wrap"><div class="dot"></div></div>
+      <div class="radar-content">
+        <div class="radar-name">🟣 DPD Argentina</div>
+        <div class="radar-action"><strong>3 años en el país y expansión AMBA:</strong> Celebró su aniversario durante el Hot Sale con foco en logística predictiva y tecnología. Red de +1.000 puntos en AMBA. Combina expertise internacional de Geopost + TASA Logística. Apuesta a envíos internacionales y B2C premium.</div>
+        <span class="radar-impact">⚠️ Consolida posición premium. Fixy debe reforzar argumento de flexibilidad y atención personalizada.</span>
+        <a href="https://perspectives.com.ar/dpd-argentina-destaca-el-crecimiento-del-ecommerce-y-los-desafios-de-la-logistica-de-ultima-milla/" target="_blank" class="radar-source">→ fuente</a>
+      </div>
+    </div>
+
+    <div class="radar-card reveal">
+      <div class="radar-dot-wrap"><div class="dot dot-quiet"></div></div>
+      <div class="radar-content">
+        <div class="radar-name">⚪ OCA · Urbano · Pickit · Shipnow · Moova · Jipink · Fastmail · Bluemail · Fastrack</div>
+        <div class="radar-action">Sin novedades públicas relevantes esta semana. OCA participa del consorcio interesado en Correo Argentino junto a Andreani y OCASA. Pickit consolida red de puntos en LATAM (ARG, MX, CO, CL, PE, UY). Jipink activo en integraciones con Tiendanube y VTEX. Moova sin comunicados nuevos.</div>
+        <span class="radar-impact">ℹ️ Monitoreo de rutina — sin cambios estratégicos detectados</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<section class="section" id="bonus">
+  <div class="section-header reveal">
+    <div class="section-icon">🛠️</div>
+    <div>
+      <div class="section-title">Herramienta del Día</div>
+      <div class="section-sub">Un recurso de IA accionable para el equipo de Fixy</div>
+    </div>
+  </div>
+  <div class="bonus-card reveal">
+    <div class="bonus-label">🤖 IA para Logística Last-Mile</div>
+    <div class="bonus-title">SimpliRoute — Optimización de rutas con Machine Learning</div>
+    <div class="bonus-body">
+      SimpliRoute usa algoritmos de ML para planificar y optimizar rutas de entrega en tiempo real. Su CEO Álvaro Echeverría publicó esta semana (24/05) que <em>"la logística se va a ver altamente tecnologizada"</em> en los próximos 24 meses — y SimpliRoute ya está ahí.<br><br>
+      <strong>Por qué importa a Fixy:</strong> Puede reducir costos de combustible hasta un 30% y aumentar la cantidad de paradas por ruta. Integra vía API con WMS propios, Tiendanube y plataformas similares. Disponible para LATAM con clientes activos en Argentina, Chile, México y Colombia.<br><br>
+      <strong>Acción concreta:</strong> Pedir demo esta semana y evaluar integración al stack tecnológico actual de Fixy para mejorar eficiencia operativa y bajar costo por entrega.
+    </div>
+    <a href="https://simpliroute.com" target="_blank" class="bonus-cta">→ Ver SimpliRoute</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">F<span>.</span>ixy</div>
+    <p class="footer-tagline">Logística last-mile para ecommerce · Argentina</p>
+    <div class="footer-divider"></div>
+    <p class="footer-sources">
+      <strong>Fuentes:</strong> CACE · Tiendanube NubeCommerce 2026 · Infonegocios (Andreani) · El Cronista (MELI, Correo Arg.) · Bahía César (Andreani 4hs, 14/05) · Punto a Punto (MELI logística) · Perspectives (DPD Argentina) · Canal 26 (Privatizaciones, 26/05) · eCommerceDay Argentina 2026 · ID4YOU Tendencias eCommerce · La Silla Rota (SimpliRoute, 24/05)
+    </p>
+    <p class="footer-tagline" style="font-size:.72rem">Generado el 27 de mayo de 2026 · Briefing Diario de Marketing · Fixy Logística</p>
+  </div>
+</footer>
+
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+window.addEventListener('scroll',()=>{
+  const el=document.documentElement;
+  const pct=(el.scrollTop/(el.scrollHeight-el.clientHeight))*100;
+  document.getElementById('progress-bar').style.width=pct+'%';
+  document.getElementById('back-top').classList.toggle('visible',el.scrollTop>400);
+});
+const reveals=document.querySelectorAll('.reveal');
+const revObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');revObs.unobserve(e.target);}});},{threshold:.1});
+reveals.forEach(r=>revObs.observe(r));
+function easeOut(t){return 1-Math.pow(1-t,3);}
+function animateCounter(el){
+  const target=parseInt(el.dataset.target);
+  const duration=1800;const start=performance.now();
+  function step(now){const e=now-start;const p=Math.min(e/duration,1);el.textContent=Math.round(easeOut(p)*target);if(p<1)requestAnimationFrame(step);}
+  requestAnimationFrame(step);
+}
+const statObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('[data-target]').forEach(animateCounter);statObs.unobserve(e.target);}});},{threshold:.4});
+document.querySelectorAll('.stat-card').forEach(c=>statObs.observe(c));
+</script>
+</body>
+</html>
